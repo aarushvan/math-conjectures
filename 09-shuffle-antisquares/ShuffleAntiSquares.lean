@@ -743,6 +743,15 @@ theorem zLenNat_coe (spec : Nat × Nat) (t : Nat) :
     Int.ofNat (zLenNat spec t) = Int.ofNat spec.1 + Int.ofNat spec.2 * Int.ofNat t := by
   simp only [zLenNat, int_ofNat_eq_coe, Int.natCast_add, Int.natCast_mul]
 
+theorem ofNat_add (a b : Nat) : Int.ofNat (a + b) = Int.ofNat a + Int.ofNat b := by
+  simp only [int_ofNat_eq_coe, Int.natCast_add]
+
+theorem ofNat_ite (p : Prop) [Decidable p] (a b : Nat) :
+    Int.ofNat (if p then a else b) = if p then Int.ofNat a else Int.ofNat b := by
+  split <;> rfl
+
+theorem ofNat_zero : Int.ofNat 0 = (0 : Int) := rfl
+
 theorem lenRowOf_lt4_0 {tidx : Nat} (h : tidx < 4) : lenRowOf tidx 0 = 0 := by simp [lenRowOf, h]
 theorem lenRowOf_lt4_1 {tidx : Nat} (h : tidx < 4) : lenRowOf tidx 1 = 1 := by simp [lenRowOf, h]
 theorem lenRowOf_lt4_2 {tidx : Nat} (h : tidx < 4) : lenRowOf tidx 2 = 2 := by simp [lenRowOf, h]
@@ -861,21 +870,30 @@ theorem template_not_square (tidx z2 z1 t : Nat) (ht : tidx < 12)
        d (4 + ur3) * Int.ofNat x3 + d (4 + ur4) * Int.ofNat x4) -
       (d (4 + vr0) * Int.ofNat y0 + d (4 + vr1) * Int.ofNat y1 + d (4 + vr2) * Int.ofNat y2 +
        d (4 + vr3) * Int.ofNat y3 + d (4 + vr4) * Int.ofNat y4) := by
-      have ev1 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) = vr2 := by dsimp [vr2]; omega
-      have ev2 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) + (ol.getD 2 0 - k2) = vr3 := by dsimp [vr3]; omega
+      have ev1 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) = vr2 := by
+        try dsimp only [ol, vr2] at *
+        omega
+      have ev2 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) + (ol.getD 2 0 - k2) = vr3 := by
+        try dsimp only [ol, vr3] at *
+        omega
       have ev3 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) + (ol.getD 2 0 - k2) + (ol.getD 3 0 - k3) = vr4 := by
-        dsimp [vr4]; omega
+        try dsimp only [ol, vr4] at *
+        omega
       have hite := sum7_ite5 ur0 ur1 ur2 ur3 ur4 vr0 vr1 vr2 vr3 vr4
-        (by omega) (by omega) (by omega) (by omega) (by omega)
-        (by omega) (by omega) (by omega) (by omega) (by omega)
+        (by try dsimp only [ol, ur0] at *; omega) (by try dsimp only [ol, ur1] at *; omega)
+        (by try dsimp only [ol, ur2] at *; omega) (by try dsimp only [ol, ur3] at *; omega)
+        (by try dsimp only [ol, ur4] at *; omega)
+        (by try dsimp only [ol, vr0] at *; omega) (by try dsimp only [ol, vr1] at *; omega)
+        (by try dsimp only [ol, vr2] at *; omega) (by try dsimp only [ol, vr3] at *; omega)
+        (by try dsimp only [ol, vr4] at *; omega)
         (fun q => d (4 + q)) (Int.ofNat x0) (Int.ofNat x1) (Int.ofNat x2) (Int.ofNat x3) (Int.ofNat x4)
         (Int.ofNat y0) (Int.ofNat y1) (Int.ofNat y2) (Int.ofNat y3) (Int.ofNat y4)
       rw [← hite]
       apply sum7_congr
       intro q _
       simp only [gapU, gapV, Nat.zero_add, Nat.add_zero]
-      rw [ev1, ev2, ev3]
-      simp only [Int.natCast_add, if_nat_coe]
+      rw [ev3, ev2, ev1]
+      simp only [ofNat_add, ofNat_ite, ofNat_zero, Int.add_assoc]
       rfl
     have hgap_z : (d (4 + ur0) * Int.ofNat x0 + d (4 + ur1) * Int.ofNat x1 + d (4 + ur2) * Int.ofNat x2 +
         d (4 + ur3) * Int.ofNat x3 + d (4 + ur4) * Int.ofNat x4) -
@@ -884,20 +902,20 @@ theorem template_not_square (tidx z2 z1 t : Nat) (ht : tidx < 12)
     have heq0 : Int.ofNat x0 + Int.ofNat y0 + Int.ofNat x4 + Int.ofNat y4 -
         (Int.ofNat (zs.getD 0 (0,0)).1 + Int.ofNat (zs.getD 0 (0,0)).2 * Int.ofNat t) = 0 := by
       have hm0 : Int.ofNat (x0 + y0 + x4 + y4) = Int.ofNat (zLenNat (zs.getD 0 (0,0)) t) := by
-        rw [hx0, hx4, hlenz]
-      rw [zLenNat_coe] at hm0; omega
+        rw [hx0, Nat.add_assoc, hx4, hlenz]
+      rw [zLenNat_coe, ofNat_add, ofNat_add, ofNat_add] at hm0; omega
     have heq1 : Int.ofNat x1 + Int.ofNat y1 -
         (Int.ofNat (zs.getD 1 (0,0)).1 + Int.ofNat (zs.getD 1 (0,0)).2 * Int.ofNat t) = 0 := by
       have hm1 : Int.ofNat (x1 + y1) = Int.ofNat (zLenNat (zs.getD 1 (0,0)) t) := by rw [hx1]
-      rw [zLenNat_coe] at hm1; omega
+      rw [zLenNat_coe, ofNat_add] at hm1; omega
     have heq2 : Int.ofNat x2 + Int.ofNat y2 -
         (Int.ofNat (zs.getD 2 (0,0)).1 + Int.ofNat (zs.getD 2 (0,0)).2 * Int.ofNat t) = 0 := by
       have hm2 : Int.ofNat (x2 + y2) = Int.ofNat (zLenNat (zs.getD 2 (0,0)) t) := by rw [hx2]
-      rw [zLenNat_coe] at hm2; omega
+      rw [zLenNat_coe, ofNat_add] at hm2; omega
     have heq3 : Int.ofNat x3 + Int.ofNat y3 -
         (Int.ofNat (zs.getD 3 (0,0)).1 + Int.ofNat (zs.getD 3 (0,0)).2 * Int.ofNat t) = 0 := by
       have hm3 : Int.ofNat (x3 + y3) = Int.ofNat (zLenNat (zs.getD 3 (0,0)) t) := by rw [hx3]
-      rw [zLenNat_coe] at hm3; omega
+      rw [zLenNat_coe, ofNat_add] at hm3; omega
     exact farkas_zcut_absurd
       (d 0) (d 1) (d 2) (d 3)
       (d (4 + ur0)) (d (4 + ur1)) (d (4 + ur2)) (d (4 + ur3)) (d (4 + ur4))
@@ -1005,21 +1023,28 @@ theorem template_not_square (tidx z2 z1 t : Nat) (ht : tidx < 12)
        d (4 + ur2) * Int.ofNat x2 + d (4 + ur3) * Int.ofNat x3) -
       (d (4 + vr0) * Int.ofNat y0 + d (4 + vr1) * Int.ofNat y1 +
        d (4 + vr2) * Int.ofNat y2 + d (4 + vr3) * Int.ofNat y3) := by
-      have ev1 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) = vr1 := by dsimp [vr1]; omega
-      have ev2 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) + (ol.getD 2 0 - k2) = vr2 := by dsimp [vr2]; omega
+      have ev1 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) = vr1 := by
+        try dsimp only [ol, vr1] at *
+        omega
+      have ev2 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) + (ol.getD 2 0 - k2) = vr2 := by
+        try dsimp only [ol, vr2] at *
+        omega
       have ev3 : ol.getD 0 0 - k0 + (ol.getD 1 0 - k1) + (ol.getD 2 0 - k2) + (ol.getD 3 0 - k3) = vr3 := by
-        dsimp [vr3]; omega
+        try dsimp only [ol, vr3] at *
+        omega
       have hite := sum7_ite4 ur0 ur1 ur2 ur3 vr0 vr1 vr2 vr3
-        (by omega) (by omega) (by omega) (by omega)
-        (by omega) (by omega) (by omega) (by omega)
+        (by try dsimp only [ol, ur0] at *; omega) (by try dsimp only [ol, ur1] at *; omega)
+        (by try dsimp only [ol, ur2] at *; omega) (by try dsimp only [ol, ur3] at *; omega)
+        (by try dsimp only [ol, vr0] at *; omega) (by try dsimp only [ol, vr1] at *; omega)
+        (by try dsimp only [ol, vr2] at *; omega) (by try dsimp only [ol, vr3] at *; omega)
         (fun q => d (4 + q)) (Int.ofNat x0) (Int.ofNat x1) (Int.ofNat x2) (Int.ofNat x3)
         (Int.ofNat y0) (Int.ofNat y1) (Int.ofNat y2) (Int.ofNat y3)
       rw [← hite]
       apply sum7_congr
       intro q _
       simp only [gapU, gapV, Nat.zero_add, Nat.add_zero]
-      rw [ev1, ev2, ev3]
-      simp only [Int.natCast_add, if_nat_coe]
+      rw [ev3, ev2, ev1]
+      simp only [ofNat_add, ofNat_ite, ofNat_zero, Int.add_assoc]
       rfl
     have hgap_o : (d (4 + ur0) * Int.ofNat x0 + d (4 + ur1) * Int.ofNat x1 +
         d (4 + ur2) * Int.ofNat x2 + d (4 + ur3) * Int.ofNat x3) -
@@ -1028,19 +1053,19 @@ theorem template_not_square (tidx z2 z1 t : Nat) (ht : tidx < 12)
     have heq0 : Int.ofNat x0 + Int.ofNat y0 -
         (Int.ofNat (zs.getD 0 (0,0)).1 + Int.ofNat (zs.getD 0 (0,0)).2 * Int.ofNat t) = 0 := by
       have hm0 : Int.ofNat (x0 + y0) = Int.ofNat (zLenNat (zs.getD 0 (0,0)) t) := by rw [hx0]
-      rw [zLenNat_coe] at hm0; omega
+      rw [zLenNat_coe, ofNat_add] at hm0; omega
     have heq1 : Int.ofNat x1 + Int.ofNat y1 -
         (Int.ofNat (zs.getD 1 (0,0)).1 + Int.ofNat (zs.getD 1 (0,0)).2 * Int.ofNat t) = 0 := by
       have hm1 : Int.ofNat (x1 + y1) = Int.ofNat (zLenNat (zs.getD 1 (0,0)) t) := by rw [hx1]
-      rw [zLenNat_coe] at hm1; omega
+      rw [zLenNat_coe, ofNat_add] at hm1; omega
     have heq2 : Int.ofNat x2 + Int.ofNat y2 -
         (Int.ofNat (zs.getD 2 (0,0)).1 + Int.ofNat (zs.getD 2 (0,0)).2 * Int.ofNat t) = 0 := by
       have hm2 : Int.ofNat (x2 + y2) = Int.ofNat (zLenNat (zs.getD 2 (0,0)) t) := by rw [hx2]
-      rw [zLenNat_coe] at hm2; omega
+      rw [zLenNat_coe, ofNat_add] at hm2; omega
     have heq3 : Int.ofNat x3 + Int.ofNat y3 -
         (Int.ofNat (zs.getD 3 (0,0)).1 + Int.ofNat (zs.getD 3 (0,0)).2 * Int.ofNat t) = 0 := by
       have hm3 : Int.ofNat (x3 + y3) = Int.ofNat (zLenNat (zs.getD 3 (0,0)) t) := by rw [hx3]
-      rw [zLenNat_coe] at hm3; omega
+      rw [zLenNat_coe, ofNat_add] at hm3; omega
     exact farkas_ocut_absurd
       (d 0) (d 1) (d 2) (d 3)
       (d (4 + ur0)) (d (4 + ur1)) (d (4 + ur2)) (d (4 + ur3))
