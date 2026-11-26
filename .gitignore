@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.olean
+*.o
+03-oeis-a377090/verify_a377090
+05-mo476077-johnston/cpp/mo476077_search
