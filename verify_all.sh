@@ -10,6 +10,7 @@ LEAN_FILES=(
   04-oeis-a384890/WisemanA384890.lean
   05-mo476077-johnston/JohnstonEsymmM345.lean
   06-berlow-stack-sorting/BerlowStackSorting.lean
+  09-shuffle-antisquares/ShuffleAntiSquares.lean
 )
 
 echo "=== 1. Checking Lean 4 files for sorry/admit/unsafe/custom axioms ==="
@@ -26,7 +27,7 @@ if grep -rn $'\xe2\x80\x94' --exclude-dir=.git --exclude="verify_a377090" --excl
 fi
 echo "Clean: zero em dashes across repository."
 
-echo "=== 3. Kernel-checking all 5 Lean 4 proofs (leanprover/lean4:v4.36.0) ==="
+echo "=== 3. Kernel-checking all 6 Lean 4 proofs (leanprover/lean4:v4.36.0) ==="
 for f in "${LEAN_FILES[@]}"; do
   echo "--- Compiling $f ---"
   if ! OUT="$(lean "$f" 2>&1)"; then
@@ -39,9 +40,9 @@ for f in "${LEAN_FILES[@]}"; do
     exit 1
   fi
 done
-echo "All 5 Lean 4 files kernel-checked cleanly."
+echo "All 6 Lean 4 files kernel-checked cleanly."
 
-echo "=== 4. Running Python verifiers across Tracks 01..08 ==="
+echo "=== 4. Running Python verifiers across Tracks 01..12 ==="
 python3 01-dihedral-shuffle-squares/verify_dihedral.py
 python3 02-oeis-a382427-a381717/verify_a382427.py
 python3 04-oeis-a384890/verify_a384890.py
@@ -51,6 +52,9 @@ python3 06-berlow-stack-sorting/verify_berlow.py
 python3 07-oeis-a384350/verify_a384350.py
 python3 08-oeis-a383093/verify_a383093.py
 python3 09-shuffle-antisquares/verify_antisquares.py
+python3 10-berlow-stack-sorting-132-213/verify_berlow_132_213.py --through-12
+python3 11-mo475478-stanley-bivariate/stanley_verify.py --degree 8
+python3 12-mo507835-phan-lattice/phan_periodic.py --dimensions 2 3 4 --periods 3 4 6 --steps 6000 --restarts 3
 
 echo "=== 5. Compiling and running C / C++ verifiers ==="
 clang -O3 -Wall -Wextra -Werror 03-oeis-a377090/verify_a377090.c -lm -o 03-oeis-a377090/verify_a377090

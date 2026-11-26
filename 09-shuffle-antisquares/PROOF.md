@@ -3,7 +3,9 @@
 - **Source:** Jaroslaw Grytczuk, Bartlomiej Pawlik, and Mariusz Pleszczynski, *Variations on shuffle squares* ([arXiv:2308.13882v2](https://arxiv.org/abs/2308.13882v2), Section 2.2, Conjecture 1).
 - **Conjecture 1:** *There exists a shuffle anti-square of length $2n$ for every $n \ge 12$.*
 - **Status:** **Completely Proved** for all integers $n \ge 12$ using a single explicit one-parameter family. Together with [Track 01](../01-dihedral-shuffle-squares/PROOF.md) (which disproves Conjecture 2 for all $2n \ge 8$), both Conjecture 1 and Conjecture 2 of `arXiv:2308.13882v2` are now completely resolved.
-- **Verifier:** [`verify_antisquares.py`](verify_antisquares.py) (verifies the DP oracle against brute-force partitions up to length $10$, checks every cyclic shift of $W_n$ directly for $n = 12 \dots 45$, and extracts and verifies in exact integer arithmetic all $568$ Farkas dual certificates proving $W_n$ is a shuffle anti-square for every $n \ge 12$).
+- **Verification:**
+  - Zero-dependency Lean 4 formalization of the entire proof for all $n \ge 12$ (`grytczuk_conjecture_1_true`): [`ShuffleAntiSquares.lean`](ShuffleAntiSquares.lean)
+  - Exact Python Farkas and DP verifier (`verify_antisquares.py`): verifies the DP oracle against brute-force partitions up to length $10$, checks every cyclic shift of $W_n$ directly for $n = 12 \dots 45$, and extracts and verifies in exact integer arithmetic all $568$ Farkas dual certificates proving $W_n$ is a shuffle anti-square for every $n \ge 12$.
 
 ---
 
@@ -36,7 +38,7 @@ Cutting the cyclic word $W_n$ at index $s$ falls into one of $12$ exhaustive str
 
 ### 2. Run-Level Flow Reduction
 In a fixed template with $m \in \{4, 5\}$ one-runs of lengths $o_0, \dots, o_{m-1}$ and $nz \in \{4, 5\}$ zero-runs:
-- Let $k_i \in \{0, \dots, o_i\}$ be the number of ones assigned to $U$ from the $i$-th one-run (leaving $o_i - k_i$ ones to $V$), with $\sum_{i=0}^{m-1} k_i = 6$. Enumerating all tuples $(k_0, \dots, k_{m-1})$ across the $12$ templates yields exactly **$568$ valid $(template, \mathbf{k})$ pairs**.
+- Let $k_i \in \{0, \dots, o_i\}$ be the number of ones assigned to $U$ from the $i$-th one-run (leaving $o_i - k_i$ ones to $V$), with $\sum_{i=0}^{m-1} k_i = 6$. Enumerating all tuples $(k_0, \dots, k_{m-1})$ across the $12$ templates yields exactly **$568$ valid $(\text{template}, \mathbf{k})$ pairs**.
 - Let $x_j \ge 0$ and $y_j \ge 0$ be the numbers of zeros assigned to $U$ and $V$ respectively from the $j$-th zero-run ($0 \le j < nz$).
 
 For $U$ and $V$ to be identical binary strings of length $n$ containing $6$ ones, two sets of linear equality constraints must hold over the nonnegative real variables $(t, x_0, \dots, x_{nz-1}, y_0, \dots, y_{nz-1}) \ge 0$:

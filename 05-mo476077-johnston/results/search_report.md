@@ -1,5 +1,7 @@
 # MathOverflow #476077 Computational Search Report
 
+> **Historical note:** This report documents the preliminary computational sweep and adversarial search that preceded the complete general proof (for all $2 \le m \le n$) now presented in [`../PROOF.md`](../PROOF.md).
+
 **Problem:** Nathaniel Johnston, *"Bounding elementary symmetric polynomials away from zero"* ([MathOverflow #476077](https://mathoverflow.net/questions/476077)).
 
 **Rescaled Statement ($d = m - 1$, $y_i = d x_i$):**
@@ -12,13 +14,13 @@ conjecturally $e_k(y) \ge \binom{d}{k}$ for all $1 \le k \le d$, with equality a
 
 ## Tools Built and Verified
 
-1. **Exact Rational Verifier:** `mo476077/python/verify_mo476077.py`
+1. **Exact Rational Verifier:** `05-mo476077-johnston/python/verify_mo476077.py`
    - Uses `fractions.Fraction` exact arithmetic on $\prod_{i=1}^n (1 + t y_i)$.
-   - Command: `python3 mo476077/python/verify_mo476077.py --self-test`
+   - Command: `python3 05-mo476077-johnston/python/verify_mo476077.py --self-test`
    - Result: `verify_mo476077.py self-tests PASSED.`
 
-2. **High-Speed C++20 Search Engine:** `mo476077/cpp/mo476077_search.cpp`
-   - Compiled with: `clang++ -O3 -std=c++20 -pthread -march=native mo476077/cpp/mo476077_search.cpp -o mo476077/cpp/mo476077_search`
+2. **High-Speed C++20 Search Engine:** `05-mo476077-johnston/cpp/mo476077_search.cpp`
+   - Compiled with: `clang++ -O3 -std=c++20 -pthread -march=native 05-mo476077-johnston/cpp/mo476077_search.cpp -o 05-mo476077-johnston/cpp/mo476077_search`
 
 ## Search Results
 
@@ -36,4 +38,4 @@ conjecturally $e_k(y) \ge \binom{d}{k}$ for all $1 \le k \le d$, with equality a
 - **Outcome:** **0 counterexamples found.** All minimum ratios satisfied `min_ratio >= 1` (minimum gaps for $n = m+1$ hit $0$ within `long double` roundoff $\sim -7.1 \times 10^{-15}$ at $y^*$; for larger $n$, best feasible ratios remained $\ge 1.0000000$).
 
 ## Conclusion from Computational Phase
-Both structured algebraic families (up to $m = 25$) and unconstrained numerical minimization with negative entries (for $m = 6 \dots 10$) strongly support the truth of MathOverflow #476077 in full generality, pointing toward proving the bound (starting with $m = 6$ and general $m$) rather than finding a counterexample.
+Both structured algebraic families (up to $m = 25$) and unconstrained numerical minimization with negative entries (for $m = 6 \dots 10$) supported MathOverflow #476077 in full generality; the complete general proof for all $2 \le m \le n$ and $1 \le k < m$ (together with uniqueness of the equality case) was subsequently completed and audited in [`../PROOF.md`](../PROOF.md).
