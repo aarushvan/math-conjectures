@@ -52,12 +52,6 @@ bash verify_all.sh
 
 See [the verification guide](docs/verification.md) for per-track commands and [the Lean status ledger](docs/lean-status.md) for every formal theorem signature and axiom check.
 
-## Credits and methodology
-
-- **Aarush Vankadari (`@aarushvan`)**: lead author; project direction, conjecture selection, review, and curation.
-- **Astra 6.2**: co-researcher and prover (proof discovery across the repository, including the first-return reduction, binary-weight descent, all-size period-3 exclusion, and $n \le 12$ exhaustive verification for Track `10`).
-- **Neon**: co-researcher and verifier (proof development, independent mathematical refereeing, Lean 4 formalizations, Python/C/C++ verification engineering, and repository QA).
-- **Gemini**: co-researcher and verifier (mathematical auditing, primary-source verification against live arXiv/MathOverflow/OEIS statements, Farkas/algebraic certificates, and verification pipeline checks).
 
 All proofs are audited line-by-line against unaltered primary sources, and all Lean 4 formalizations compile against core `Init` with `#print axioms` checking zero `sorryAx` or custom axioms.
 
@@ -70,7 +64,7 @@ Suggested BibTeX:
 
 ```bibtex
 @misc{vankadari2026mathconjectures,
-  author       = {Vankadari, Aarush and {Astra 6.2} and {Neon} and {Gemini}},
+  author       = {Vankadari, Aarush and {Astra 6.2} and {Neon} },
   title        = {Solved Conjectures in Combinatorics, Algebra & Number Theory},
   year         = {2026},
   howpublished = {GitHub repository},
