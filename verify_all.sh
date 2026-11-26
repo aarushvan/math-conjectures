@@ -50,6 +50,7 @@ python3 05-mo476077-johnston/python/verify_identities_m345.py
 python3 06-berlow-stack-sorting/verify_berlow.py
 python3 07-oeis-a384350/verify_a384350.py
 python3 08-oeis-a383093/verify_a383093.py
+python3 09-shuffle-antisquares/verify_antisquares.py
 
 echo "=== 5. Compiling and running C / C++ verifiers ==="
 clang -O3 -Wall -Wextra -Werror 03-oeis-a377090/verify_a377090.c -lm -o 03-oeis-a377090/verify_a377090
