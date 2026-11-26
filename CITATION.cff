@@ -6,16 +6,14 @@ authors:
   - family-names: Vankadari
     given-names: Aarush
     alias: aarushvan
-  - name: "Astra 6.2 (co-researcher and prover)"
   - name: "Neon (co-researcher and verifier)"
-  - name: "Gemini (co-researcher and verifier)"
 repository-code: "https://github.com/aarushvan/math-conjectures"
 date-released: 2026-11-26
 abstract: >-
   Audited proofs, explicit counterexamples, partial structural reductions,
   zero-dependency Lean 4 (v4.36.0) formalizations, and reproducible exact
   verifiers for open conjectures across combinatorics, symmetric functions,
-  and number theory. Co-researched and verified with Astra 6.2, Neon, and Gemini.
+  and number theory.
 keywords:
   - mathematics
   - conjectures

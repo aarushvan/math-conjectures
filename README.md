@@ -2,7 +2,7 @@
 
 Mathematical proofs, counterexamples, and partial results in combinatorics, symmetric functions, and number theory, paired with zero-dependency Lean 4 (`v4.36.0`) formalizations and reproducible exact verification scripts.
 
-Curated by **Aarush Vankadari (`@aarushvan`)**, with **Astra 6.2**, **Neon**, and **Gemini** as co-researchers and verifiers.
+Curated by **Aarush Vankadari (`@aarushvan`)**, with **Astra 6.2** and **Neon** as co-researchers and verifiers.
 
 [Full catalogue](CONTENTS.md) · [Verification](docs/verification.md) · [Lean status](docs/lean-status.md) · [Outreach drafts](outreach/EMAILS_AND_SUBMISSIONS.md)
 
@@ -52,19 +52,18 @@ bash verify_all.sh
 
 See [the verification guide](docs/verification.md) for per-track commands and [the Lean status ledger](docs/lean-status.md) for every formal theorem signature and axiom check.
 
-
 All proofs are audited line-by-line against unaltered primary sources, and all Lean 4 formalizations compile against core `Init` with `#print axioms` checking zero `sorryAx` or custom axioms.
 
 <details>
 <summary>Citation and sources</summary>
 
-If you use or cite this collection, please credit **Aarush Vankadari (`@aarushvan`)** together with co-researchers and verifiers **Astra 6.2**, **Neon**, and **Gemini**, and cite the original conjecture source separately (see [`CONTENTS.md`](CONTENTS.md#primary-sources) and [`CITATION.cff`](CITATION.cff)).
+If you use or cite this collection, please credit **Aarush Vankadari (`@aarushvan`)** and **Neon**, and cite the original conjecture source separately (see [`CONTENTS.md`](CONTENTS.md#primary-sources) and [`CITATION.cff`](CITATION.cff)).
 
 Suggested BibTeX:
 
 ```bibtex
 @misc{vankadari2026mathconjectures,
-  author       = {Vankadari, Aarush and {Astra 6.2} and {Neon} },
+  author       = {Vankadari, Aarush and {Neon}},
   title        = {Solved Conjectures in Combinatorics, Algebra & Number Theory},
   year         = {2026},
   howpublished = {GitHub repository},
