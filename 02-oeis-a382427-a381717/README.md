@@ -6,6 +6,12 @@ A partition admits a decomposition into constant blocks of pairwise distinct sum
 
 - [Complete proof](PROOF.md)
 - [Lean 4 formalization (`wiseman_A382427_iff`, `wiseman_A381717_iff`) ✅](WisemanA382427.lean)
-- [Exhaustive Python verifier ($n \le 22$)](verify_a382427.py)
+- [Exhaustive Python verifier](verify_a382427.py) ($n \le 22$)
+- [Statement Audit](../docs/STATEMENT_AUDIT.md#track-02-constant-block-vs-distinct-run-sum-partitions-)
 
 Run `lean WisemanA382427.lean && python3 verify_a382427.py`.
+
+## Statement Audit
+
+- **Partitions & blocks:** `parts : List Nat` with positivity `∀ x ∈ parts, x > 0` up to `List.Perm`; `Block` enforces positive part values and positive block multiplicities, matching OEIS A382427/A381717 directly.
+- **Runs vs. blocks:** `maxRuns` groups strictly maximal contiguous equal-value runs and checks `(bs.map Block.sum).Nodup` vs. `((maxRuns w).map (fun r => r.1 * r.2)).Nodup`.

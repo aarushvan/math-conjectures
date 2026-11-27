@@ -1,9 +1,9 @@
-# Proof of Gus Wiseman's Mobius Identity on OEIS A383093
+# Proof of Gus Wiseman's Möbius Identity on OEIS A383093
 
 - **Source:** Gus Wiseman, [OEIS A383093](https://oeis.org/A383093) (2025; offset 0 with $a(0) = 1$) and [OEIS A323774](https://oeis.org/A323774) ($F(n) = \sum_{s \mid n} \binom{n/s + \tau(s) - 1}{n/s}$ for $n \ge 1$).
 - **Conjecture:** Let $a(n)$ count integer partitions of $n$ that can be partitioned into constant blocks with a common sum. Then for all $n \ge 1$,
   $$\sum_{d \mid n} a(d) = \mathrm{A323774}(n) = \sum_{s \mid n} \binom{n/s + \tau(s) - 1}{n/s},$$
-  i.e., $a$ is the Dirichlet / Mobius transform inverse of $\mathrm{A323774}$ on $\mathbb{Z}_{\ge 1}$.
+  i.e., $a$ is the Dirichlet / Möbius transform inverse of $\mathrm{A323774}$ on $\mathbb{Z}_{\ge 1}$.
 - **Status:** **Proved** for all $n \ge 1$ via an explicit mutually inverse multiplicity-scaling bijection.
 - **Verifier:** [`verify_a383093.py`](verify_a383093.py) (exact check against live OEIS A383093 and A323774 terms for $n = 0 \dots 24$).
 

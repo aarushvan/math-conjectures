@@ -7,7 +7,7 @@
 - **Status:** **Completely Proved** for all $n \ge 1$, together with the explicit linear convergence bound $f^{3n-7}(\pi) \in \{\mathrm{id}_n, \mathrm{id}_n^r\}$ for all $n \ge 3$ (while $f(\pi) \in \{\mathrm{id}_n, \mathrm{id}_n^r\}$ in $0$ or $1$ steps for $n \le 2$).
 - **Scope note on Conjecture 5.1:** Berlow's Conjecture 5.1 asks for the periodic points of both $s_{\{213, 231\}}$ and $s_{\{132, 213\}}$ (equivalently $s_{\{231, 312\}}$ by complementation symmetry, as noted by Zhang). Since $\{213, 231\}$ is self-complementary whereas $\{132, 213\}^c = \{231, 312\}$, this note completely resolves the $\{213, 231\}$ map; the $\{132, 213\}$ / $\{231, 312\}$ conjugate pair remains separate.
 - **Verification:**
-  - Zero-dependency Lean 4 formalization of Lemma 3 (Bottom-of-Stack Elimination for all lists) plus kernel checks on $S_4, S_5$: [`BerlowStackSorting.lean`](BerlowStackSorting.lean)
+  - Zero-dependency Lean 4 formalization proving literal `{213, 231}`-avoidance equivalence (`s213_231_literal_eq`), the $3n - 7$ convergence bound (`berlow_convergence_3n_minus_7`), and full all-$n$ periodic-point classification (`berlow_conjecture_5_1_213_231`): [`BerlowStackSorting.lean`](BerlowStackSorting.lean)
   - Exhaustive Python verifier checking literal $\{213, 231\}$ stack simulation and Lemmas 1-5 on $S_3 \dots S_7$: [`verify_berlow.py`](verify_berlow.py)
 
 ---

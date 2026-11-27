@@ -1,6 +1,6 @@
 # Verification Guide
 
-[Home](../README.md) · [Full catalogue](../CONTENTS.md) · [Lean status](lean-status.md)
+[Home](../README.md) · [Full catalogue](../CONTENTS.md) · [Lean status](lean-status.md) · [Statement audit](STATEMENT_AUDIT.md)
 
 Every resolution and computational claim in this repository can be reproduced from a single script in the repository root.
 
@@ -32,9 +32,9 @@ bash verify_all.sh
 | **03** | `clang -O3 -Wall -Wextra -Werror 03-oeis-a377090/verify_a377090.c -lm -o 03-oeis-a377090/verify_a377090 && ./03-oeis-a377090/verify_a377090` | Exact OEIS `a(0..39)` and Hasler record cross-check, then full sweep to $n = 10^7$ finding `361` violations |
 | **04** | `lean 04-oeis-a384890/WisemanA384890.lean && python3 04-oeis-a384890/verify_a384890.py` | Full Lean proof + popcount check ($n \le 20{,}000$), 87 OEIS terms, and run-length scan ($n \le 10^6$) |
 | **05** | `lean 05-mo476077-johnston/JohnstonEsymmM345.lean && python3 05-mo476077-johnston/python/verify_mo476077.py --self-test && python3 05-mo476077-johnston/python/verify_identities_m345.py` | Lean ring certificates ($m = 3, 4, 5$); exact rational verifier + cubic perturbation test ($m = 3 \dots 8$); C++20 block search (`--blocks 3 12`) |
-| **06** | `lean 06-berlow-stack-sorting/BerlowStackSorting.lean && python3 06-berlow-stack-sorting/verify_berlow.py` | Lean formalization of Lemma 3 (`s213_231_last_eq_head`) + $S_4, S_5$ witnesses; exhaustive $S_3 \dots S_7$ Python check |
+| **06** | `lean 06-berlow-stack-sorting/BerlowStackSorting.lean && python3 06-berlow-stack-sorting/verify_berlow.py` | Full end-to-end Lean 4 formalization of Berlow Conj. 5.1 / Zhang Conj. 4.2 + $3n - 7$ bound ($T = \{213, 231\}$); exhaustive $S_3 \dots S_7$ Python check |
 | **07** | `python3 07-oeis-a384350/verify_a384350.py` | Exhaustive subset-by-subset verification for $n = 0 \dots 11$ matching live OEIS A384350 |
-| **08** | `python3 08-oeis-a383093/verify_a383093.py` | Exact Mobius identity verification for $n = 0 \dots 24$ matching live OEIS A383093 and A323774 |
+| **08** | `python3 08-oeis-a383093/verify_a383093.py` | Exact Möbius identity verification for $n = 0 \dots 24$ matching live OEIS A383093 and A323774 |
 | **09** | `lean 09-shuffle-antisquares/ShuffleAntiSquares.lean && python3 09-shuffle-antisquares/verify_antisquares.py` | Full Lean end-to-end proof (`grytczuk_conjecture_1_true` for $n \ge 12$, `568` Farkas duals); DP check ($n = 12 \dots 45$) + brute-force oracle ($2m \le 10$) |
 | **10** | `python3 10-berlow-stack-sorting-132-213/verify_berlow_132_213.py --through-12` | Literal triple-check dynamics on $S_1 \dots S_7$ (`5040` perms); reduced orbit exhaustion through $n = 12$ (`578,290` states at $n = 12$) |
 | **11** | `python3 11-mo475478-stanley-bivariate/stanley_verify.py --degree 8` | Exact integer matrix verification of all `15,859` ordered classes through degree $d = 8$ |

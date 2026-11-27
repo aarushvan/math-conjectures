@@ -1,10 +1,13 @@
 # Solved Conjectures in Combinatorics, Algebra & Number Theory
 
+[![Verify Proofs and Scripts](https://github.com/aarushvan/math-conjectures/actions/workflows/verify.yml/badge.svg)](https://github.com/aarushvan/math-conjectures/actions/workflows/verify.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Mathematical proofs, counterexamples, and partial results in combinatorics, symmetric functions, and number theory, paired with zero-dependency Lean 4 (`v4.36.0`) formalizations and reproducible exact verification scripts.
 
-Curated by **Aarush Vankadari (`@aarushvan`)**, with **Astra 6.2** and **Neon** as co-researchers and verifiers.
+Authored by **Aarush Vankadari (`@aarushvan`)** and **Neon**.
 
-[Full catalogue](CONTENTS.md) · [Verification](docs/verification.md) · [Lean status](docs/lean-status.md) · [Outreach drafts](outreach/EMAILS_AND_SUBMISSIONS.md)
+[Full catalogue](CONTENTS.md) · [Verification](docs/verification.md) · [Lean status](docs/lean-status.md) · [Statement audit](docs/STATEMENT_AUDIT.md)
 
 ## Complete results
 
@@ -15,9 +18,9 @@ Curated by **Aarush Vankadari (`@aarushvan`)**, with **Astra 6.2** and **Neon** 
 | **3.** | [Prime-difference greedy deviation bound](03-oeis-a377090/) | [OEIS A377090](https://oeis.org/A377090) | Disproved ($n \ge 370{,}313$) | ⬜ |
 | **4.** | [Anti-run constant-run lengths](04-oeis-a384890/) | [OEIS A384890](https://oeis.org/A384890) | Proved (all $n$) | ✅ |
 | **5.** | [Elementary symmetric polynomial lower bounds](05-mo476077-johnston/) | [MathOverflow #476077](https://mathoverflow.net/questions/476077/bounding-elementary-symmetric-polynomials-away-from-zero) | Proved ($2 \le m \le n$) | 🟡 |
-| **6.** | [Periodic points of `{213, 231}`-avoiding stack sorting](06-berlow-stack-sorting/) | [arXiv:2008.01164v2](https://arxiv.org/abs/2008.01164), Conj. 5.1 | Proved (all $n \ge 1$) | 🟡 |
+| **6.** | [Periodic points of `{213, 231}`-avoiding stack sorting](06-berlow-stack-sorting/) | [arXiv:2008.01164v2](https://arxiv.org/abs/2008.01164), Conj. 5.1 | Proved (all $n \ge 1$) | ✅ |
 | **7.** | [Disjoint strict-partition families](07-oeis-a384350/) | [OEIS A384350](https://oeis.org/A384350) | Proved (all $n$) | ⬜ |
-| **8.** | [Common-sum block partitions Mobius identity](08-oeis-a383093/) | [OEIS A383093](https://oeis.org/A383093) / [A323774](https://oeis.org/A323774) | Proved (all $n \ge 1$) | ⬜ |
+| **8.** | [Common-sum block partitions Möbius identity](08-oeis-a383093/) | [OEIS A383093](https://oeis.org/A383093) / [A323774](https://oeis.org/A323774) | Proved (all $n \ge 1$) | ⬜ |
 | **9.** | [Binary shuffle anti-squares](09-shuffle-antisquares/) | [arXiv:2308.13882v2](https://arxiv.org/abs/2308.13882v2), Conj. 1 | Proved (all $n \ge 12$) | ✅ |
 
 Numbers (`1.` to `9.` and `10.` to `12.`) are sequential catalogue indices matching repository directory order (`01-` to `12-`), not importance rankings.
@@ -32,14 +35,13 @@ Numbers (`1.` to `9.` and `10.` to `12.`) are sequential catalogue indices match
 | ---: | :--- | :--- | :--- | :---: |
 | **10.** | [Periodic points of `{132, 213}`-avoiding stack sorting](10-berlow-stack-sorting-132-213/) | [arXiv:2008.01164v2](https://arxiv.org/abs/2008.01164), Conj. 5.1 | First-return reduction, periods $1$ to $3$ excluded for all $n$, exhausted through $n = 12$; open for $n \ge 13$, period $\ge 4$ | ⬜ |
 | **11.** | [Stanley bivariate monomial positivity](11-mo475478-stanley-bivariate/) | [MathOverflow #475478](https://mathoverflow.net/questions/475478) / [arXiv:2511.08969](https://arxiv.org/html/2511.08969#S5), Conj. 5.2 | Dominance vanishing and principal slice proved for all $d \ge 0$; `15,859` classes verified through $d = 8$; interior open | ⬜ |
-| **12.** | [Phan three-layer lattice $C_4$-free density](12-mo507835-phan-lattice/) | [MathOverflow #507835](https://mathoverflow.net/questions/507835) | Upper bound proved for $n = 2, 3, 4$ with exact $\mathbb{F}_2^2$-parity construction at $3/4$ for $n = 4$; open for $n \ge 5$ | ⬜ |
+| **12.** | [Phan three-layer lattice C₄-free density](12-mo507835-phan-lattice/) | [MathOverflow #507835](https://mathoverflow.net/questions/507835) | Upper bound proved for $n = 2, 3, 4$ with exact $\mathbb{F}_2^2$-parity construction at $3/4$ for $n = 4$; open for $n \ge 5$ | ⬜ |
 
 ## Layout
 
 - `01-.../` to `09-.../`: complete proofs and counterexamples (`PROOF.md` or `DISPROOF.md`, `.lean` formalizations, and `.py` / `.c` / `.cpp` verifiers).
 - `10-.../` to `12-.../`: verified partial theorems, structural reductions, and computational searches (`PARTIAL_PROOF.md` or `NOTES.md`, verifiers, and GPU notebook).
-- `docs/`: repository-wide [verification guide](docs/verification.md) and [Lean verification status](docs/lean-status.md).
-- `outreach/`: prepared correspondence, MathOverflow answer, and OEIS comment drafts in [`outreach/EMAILS_AND_SUBMISSIONS.md`](outreach/EMAILS_AND_SUBMISSIONS.md).
+- `docs/`: [verification guide](docs/verification.md), [Lean verification status](docs/lean-status.md), and [statement faithfulness audit](docs/STATEMENT_AUDIT.md).
 - `verify_all.sh` and `lean-toolchain`: pinned `leanprover/lean4:v4.36.0` and one-command full verification runner.
 
 ## Verification
@@ -52,7 +54,15 @@ bash verify_all.sh
 
 See [the verification guide](docs/verification.md) for per-track commands and [the Lean status ledger](docs/lean-status.md) for every formal theorem signature and axiom check.
 
-All proofs are audited line-by-line against unaltered primary sources, and all Lean 4 formalizations compile against core `Init` with `#print axioms` checking zero `sorryAx` or custom axioms.
+## Methodology and Statement Faithfulness
+
+- **Human-AI workflow:** Aarush Vankadari directs conjecture selection, reviews every mathematical argument and boundary condition, and maintains the repository. **Neon** assists with proof discovery, Lean 4 formalization, and verifier engineering.
+- **Independent verification:** Every `.lean` proof compiles standalone against Lean `v4.36.0` core `Init` (zero Mathlib) and runs `#print axioms` in CI to ensure zero `sorryAx` or custom axioms, while every computational track includes an independent exact Python or C/C++ verifier.
+- **Statement faithfulness:** [docs/STATEMENT_AUDIT.md](docs/STATEMENT_AUDIT.md) maps each original arXiv, MathOverflow, or OEIS problem statement verbatim to the formalized Lean 4 definitions and theorems, explicitly noting any partial-track scope boundaries (`🟡`).
+
+## License
+
+Code, Lean 4 formalizations, verification scripts, and workflows are licensed under the [MIT License](LICENSE). Mathematical exposition and proof notes (`*.md`) are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 <details>
 <summary>Citation and sources</summary>

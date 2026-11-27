@@ -2,6 +2,7 @@ cff-version: 1.2.0
 message: "If you cite this collection, please credit the authors named below and cite original conjecture sources separately."
 title: "Solved Conjectures in Combinatorics, Algebra & Number Theory"
 type: software
+license: MIT
 authors:
   - family-names: Vankadari
     given-names: Aarush

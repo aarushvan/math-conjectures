@@ -1,6 +1,6 @@
 # Mathematical Conjectures: Catalogue of Results
 
-[Home](README.md) · [Verification](docs/verification.md) · [Lean status](docs/lean-status.md) · [Outreach drafts](outreach/EMAILS_AND_SUBMISSIONS.md)
+[Home](README.md) · [Verification](docs/verification.md) · [Lean status](docs/lean-status.md) · [Statement audit](docs/STATEMENT_AUDIT.md)
 
 Numbers `01.` through `12.` index repository folders sequentially. Sections separate complete resolutions (`01.` to `09.`) from verified partial results and reductions (`10.` to `12.`).
 
@@ -42,10 +42,10 @@ Numbers `01.` through `12.` index repository folders sequentially. Sections sepa
   with equality for $2 \le k < m$ iff $(m-1)x$ is a permutation of $(1^{m-1}, 0^{n-m+1})$. After rescaling $y_i = (m-1)x_i \le 1$, boundary minimizers drop from $m$ to $m - 1$ by a Strong Dropping Lemma via Hermite-Biehler and Gauss-Lucas interlacing, while interior minimizers ($y_i < 1$) are eliminated by a 3-variable cubic perturbation $g_\epsilon(t) = g(t) - \epsilon(t + h_{m-2}/h_{m-3})$ via Newton's inequalities and IVT root splitting. Lean 4 checks pure ring certificates for $m = 3, 4, 5$.
 - **Package:** [`05-mo476077-johnston/`](05-mo476077-johnston/) (`PROOF.md`, `JohnstonEsymmM345.lean`, `python/`, `cpp/`, `results/search_report.md`).
 
-### 06. Periodic points of `{213, 231}`-avoiding stack sorting 🟡
+### 06. Periodic points of `{213, 231}`-avoiding stack sorting ✅
 - **Source:** Katalin Berlow, *Restricted stacks as functions* ([arXiv:2008.01164v2](https://arxiv.org/abs/2008.01164), Conj. 5.1); Owen Zhang, *The Order of the (123, 132)-Avoiding Stack Sort* ([arXiv:2405.01854](https://arxiv.org/abs/2405.01854), Conj. 4.2).
 - **Verdict:** True for all $n \ge 1$ with explicit transient bound $\le 3n - 7$ ($n \ge 3$).
-- **Result:** Under the top-to-bottom stack convention and right-greedy push rule, $s_{\{213, 231\}}$ pops iff $\min(S) < x < \max(S)$, yielding monotonicity $\mathrm{Bad}(f(\pi)) \subseteq \mathrm{Bad}(\pi)$, bottom-of-stack elimination $f(\pi)_n = \pi_1$ (formalized in Lean 4 for all lists), at most two consecutive extreme starts outside $\{\mathrm{id}_n, \mathrm{id}_n^r\}$, and one-step convergence from $\mathrm{Av}_n(213, 231)$ via Knuth's theorem.
+- **Result:** Under the top-to-bottom stack convention and right-greedy push rule, $s_{\{213, 231\}}$ pops iff $\min(S) < x < \max(S)$, yielding monotonicity $\mathrm{Bad}(f(\pi)) \subseteq \mathrm{Bad}(\pi)$, bottom-of-stack elimination $f(\pi)_n = \pi_1$ (end-to-end proof formalized in Lean 4), at most two consecutive extreme starts outside $\{\mathrm{id}_n, \mathrm{id}_n^r\}$, and one-step convergence from $\mathrm{Av}_n(213, 231)$ via Knuth's theorem.
 - **Package:** [`06-berlow-stack-sorting/`](06-berlow-stack-sorting/) (`PROOF.md`, `BerlowStackSorting.lean`, `verify_berlow.py`).
 
 ### 07. Disjoint strict-partition families ⬜
@@ -54,7 +54,7 @@ Numbers `01.` through `12.` index repository folders sequentially. Sections sepa
 - **Result:** Every non-trivial pairwise disjoint family of strict partitions $\{P_x : x \in S\}$ has $\min\{x \in S : P_x \ne \{x\}\}$ partitioned exclusively inside $\{1, \dots, n\} \setminus S$, giving an elementwise equivalence verified against live OEIS terms for $n = 0 \dots 11$.
 - **Package:** [`07-oeis-a384350/`](07-oeis-a384350/) (`PROOF.md`, `verify_a384350.py`).
 
-### 08. Common-sum block partitions Mobius identity ⬜
+### 08. Common-sum block partitions Möbius identity ⬜
 - **Source:** Gus Wiseman, [OEIS A383093](https://oeis.org/A383093) / [A323774](https://oeis.org/A323774) (2025).
 - **Verdict:** True for all $n \ge 1$.
 - **Result:** Setting $L(\lambda) = \operatorname{lcm}_i(x_i)$ and $G(\lambda) = \gcd_i(c_i x_i)$, explicit mutually inverse multiplicity-scaling bijections $\Phi, \Psi$ establish
@@ -94,7 +94,7 @@ Numbers `01.` through `12.` index repository folders sequentially. Sections sepa
 ## Precise scope
 
 - Track `05`: Lean 4 checks pure polynomial-ring certificates for $m = 3, 4, 5$; arbitrary $2 \le m \le n$ is proved by mathematical induction in [`05-mo476077-johnston/PROOF.md`](05-mo476077-johnston/PROOF.md).
-- Track `06`: Lean 4 checks Lemma 3 (`s213_231_last_eq_head`) for all lists over $\mathbb{N}$ plus finite $S_4, S_5$ witnesses; all-$n$ classification and the $3n - 7$ bound are proved in [`06-berlow-stack-sorting/PROOF.md`](06-berlow-stack-sorting/PROOF.md) for $T = \{213, 231\}$.
+- Track `06`: Lean 4 formally proves exact equivalence with literal `{213, 231}`-avoidance (`s213_231_literal_eq`), the $3n - 7$ convergence bound (`berlow_convergence_3n_minus_7`, $n \ge 3$), and full periodic-point classification (`berlow_conjecture_5_1_213_231`, $n \ge 1$) for $T = \{213, 231\}$.
 - Track `10` covers $T = \{132, 213\}$ / $\{231, 312\}$; general period $\ge 4$ for $n \ge 13$ remains open.
 - Tracks `11` and `12` explicitly state their settled cases and open gaps inside their `NOTES.md` files.
 

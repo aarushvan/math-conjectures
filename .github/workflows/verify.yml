@@ -1,0 +1,35 @@
+name: Verify Proofs and Scripts
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Lean 4, Python, and C/C++ Suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install system compilers (clang / clang++)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang
+
+      - name: Install elan and pinned Lean 4 toolchain
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          "$HOME/.elan/bin/elan" toolchain install "$(cat lean-toolchain)"
+
+      - name: Print toolchain and compiler versions
+        run: |
+          lean --version
+          python3 --version
+          clang --version
+          clang++ --version
+
+      - name: Run full verification suite
+        run: bash verify_all.sh
